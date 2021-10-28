@@ -16,6 +16,6 @@ jobs:
     - name: export file name
       run: echo "FILENAME=keylometer-$(echo $GIT_BRANCH_NAME | sed 's/\//-/g')-$TIMESTAMP" >> $GITHUB_ENV
     - name: Build
-      run: go build -o $filename
+      run: go build -o $FILENAME
     - name: generate hash
       run: sha256sum $FILENAME > $FILENAME.sha256
