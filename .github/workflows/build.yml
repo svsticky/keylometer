@@ -13,6 +13,14 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v2
+    - name: export timestamp
+      run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+      # Github exports the branchname in a different variable if you're on a push
+      # compared to a pull_request run. These variables also require unpacking
+      # because they are in /ref/head/branchname form
+    - name: Git branch name
+      id: git-branch-name
+      uses: EthanSK/git-branch-name-action@v1
     - name: export file name
       run: echo "FILENAME=keylometer-$(echo $GIT_BRANCH_NAME | sed 's/\//-/g')-$TIMESTAMP" >> $GITHUB_ENV
     - name: Build
